@@ -60,5 +60,22 @@ async function showBar(){
 
     }
 }
+function reset(){ //clear bar
+    console.log("Resetting")
+    document.getElementById("bar").innerHTML = "";
+}
 
-    showBar();
+function Sleep(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
+async function doCycle(){
+    await showBar();
+    while (true){
+        await Sleep(60000); //might add setting for that
+        reset()
+        await showBar()
+    }
+}
+
+doCycle();
