@@ -1,5 +1,5 @@
 <?php
-$ini_array = parse_ini_file("config.ini");
+$ini_array = parse_ini_file("../config.ini");
 $dbhost = $ini_array['dbhost'];
 $dbuser = $ini_array['dbuser'];
 $dbpass = $ini_array['dbpass'];
