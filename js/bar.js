@@ -1,10 +1,10 @@
 async function getColors(){
-    return fetch('./getColor.php')
+    return fetch('./getPHP/getColor.php')
         .then(response => response.json())
         .then(data => {return data});
 }
 async function getPoints(){
-    return fetch('./getPoints.php')
+    return fetch('./getPHP/getPoints.php')
         .then(response => response.json())
         .then(data => {return data});
 }

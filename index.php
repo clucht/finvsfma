@@ -21,7 +21,7 @@ $eventname = $ini_array['eventname'];
     <div class="bar_top"></div>
     <div class="bar" id="bar">
 
-        <script src="bar.js"></script>
+        <script src="js/bar.js"></script>
 
     </div>
 
