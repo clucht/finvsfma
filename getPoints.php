@@ -20,6 +20,9 @@ while ($row = mysqli_fetch_array($participants_query)) {
     ${'team'.$row['participant_id'].'_query'} = mysqli_query($dbconnect, "SELECT SUM(points) AS sum FROM games WHERE winner_id LIKE ".$row['participant_id']) or die (mysqli_error($dbconnect));
     ${'team'.$row['participant_id'].'_points'} = mysqli_fetch_array(${'team'.$row['participant_id'].'_query'});
 
+    if (${'team'.$row['participant_id'].'_points'}['sum'] == null){ //replace null with 0
+        ${'team'.$row['participant_id'].'_points'}['sum']= 0;
+    }
     ${$row['name']} = ${'team'.$row['participant_id'].'_points'}['sum'];
     $all[$row['name']] = ${'team'.$row['participant_id'].'_points'}['sum'];
 
