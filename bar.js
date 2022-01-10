@@ -25,21 +25,39 @@ async function showBar(){
     console.log("Sum: ",sum)
 
     for (let i = 0; i < points.length; i++){
-        //eval('var div' + i + '= document.createElement("div")' )
         let percentage = (parseFloat(points[i][1],10)/sum)*100;
         eval('console.log("Percentage'+ i +': ",percentage)')
 
-        var newDiv = document.createElement("div");
-        newDiv.setAttribute("id",eval('"bar' + i + '"'))
-        let styleString = "height: 100%; min-height: 100%;";
-        styleString += "width: " + percentage + "%; min-width: " + percentage + "%;";
-        styleString += "background-color: " + colors[i][1];
+        if (percentage > 0){ //don't show if team has 0 points
+            var newDiv = document.createElement("div");
+            newDiv.setAttribute("id",eval('"bar' + i + '"'))
+            let styleString = "height: 100%; min-height: 100%;"; //build string for style because style is one attribute
+            styleString += "width: " + percentage + "%; min-width: " + percentage + "%;";
+            styleString += "background-color: " + colors[i][1] + ";";
+            styleString += "font-size: min(" + percentage*0.7*0.5 + "vw, 4vh);";
 
-        newDiv.setAttribute("style",styleString);
+            let red = parseInt(colors[i][1].substring(1,3),16) //decide if text color should be black or white
+            let green = parseInt(colors[i][1].substring(3,5),16)
+            let blue = parseInt(colors[i][1].substring(5,7),16)
+            if ((red*0.299 + green*0.587 + blue*0.114) > 186){
+                styleString += "color: #000000;"
+            }
+            else {
+                styleString += "color: #ffffff;"
+            }
 
-        newDiv.setAttribute("class","sub_bar");
+            newDiv.setAttribute("style",styleString);
 
-        document.getElementById("bar").appendChild(newDiv);
+            newDiv.setAttribute("class","sub_bar");
+
+
+
+            newDiv.innerHTML = points[i][0];
+
+            document.getElementById("bar").appendChild(newDiv);
+        }
+
+
     }
 }
 

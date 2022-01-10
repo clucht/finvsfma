@@ -34,9 +34,11 @@ header{
     margin: auto;
     border-radius: 50px;
     background-color: grey;
+    overflow: hidden;
 }
 .sub_bar{
     margin: 0;
     padding: 0;
     float:left;
+    text-align: center;
 }
