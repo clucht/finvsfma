@@ -69,7 +69,7 @@ function Sleep(milliseconds) {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
-async function doCycle(){
+async function doCycle(){ //TODO move to separate script for bar and gamelist
     await showBar();
     while (true){
         await Sleep(60000); //might add setting for that
