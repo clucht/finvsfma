@@ -20,9 +20,10 @@ $eventname = $ini_array['eventname'];
 <div class="bar_wrapper">
     <div class="bar_top"></div>
     <div class="bar" id="bar">
-
         <script src="js/bar.js"></script>
-
+    </div>
+    <div class="gamelist" id="gamelist">
+        <script src="js/gamelist.js"></script>
     </div>
 
 </div>
