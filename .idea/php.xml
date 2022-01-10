@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PhpInterpreters">
-    <interpreters>
-      <interpreter id="b8b01425-3ec4-45d9-ac2e-42239aea041c" name="webdevops/php-apache-dev:latest" home="docker://DATA" debugger_id="php.debugger.XDebug">
-        <remote_data INTERPRETER_PATH="php" HELPERS_PATH="/opt/.phpstorm_helpers" INITIALIZED="false" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" DOCKER_ACCOUNT_NAME="Docker" DOCKER_IMAGE_NAME="webdevops/php-apache-dev:latest" DOCKER_REMOTE_PROJECT_PATH="/opt/project" />
-      </interpreter>
-    </interpreters>
-  </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
 </project>
