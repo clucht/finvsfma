@@ -49,6 +49,7 @@ if((isset($_POST['new']) && $_POST['new']==1) || (isset($_POST['update']) && $_P
         mysqli_query($dbconnect,$ins_query) or die("Database connection failed: " . $dbconnect->connect_error);
     }
     //TODO add message for new or update
+    //TODO catch existing ID
 }
 
 $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or die (mysqli_error($dbconnect));
