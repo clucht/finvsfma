@@ -1,3 +1,17 @@
+<script>
+    function updateGame(id,game,points,winner,time){
+        time = time.replace(/\s/g, 'T');
+        time = time.substring(0, time.length-3);
+        document.getElementById('inputForm').elements["id"].value = id;
+        document.getElementById('inputForm').elements["game"].value = game;
+        document.getElementById('inputForm').elements["points"].value = points;
+        document.getElementById('inputForm').elements["winner"].value = winner;
+        document.getElementById('inputForm').elements["time"].value = time;
+        document.getElementById('inputForm').elements["new"].value = 0;
+        document.getElementById('inputForm').elements["update"].value = 1;
+    }
+</script>
+
 <?php
 $ini_array = parse_ini_file("../config.ini");
 $dbhost = $ini_array['dbhost'];
@@ -29,15 +43,12 @@ if((isset($_POST['new']) && $_POST['new']==1) || (isset($_POST['update']) && $_P
     }
     elseif ($_POST['update']==1){
         $ins_query=" update games
-    (`id`,`name`,`points`,`winner_id`,`time`)values
-    ('$id','$game','$points','$winner','$time')
-    where id = '$id'";
+        /* SET id = $id, name = $game, points = $points, winner_id = $winner, time = $time */
+        SET id = $id, name = '$game', points = $points, winner_id = $winner
+        where id = $id";
         mysqli_query($dbconnect,$ins_query) or die("Database connection failed: " . $dbconnect->connect_error);
     }
-
-
-    $status = "New Record Inserted Successfully.
-    </br></br><a href='view.php'>View Inserted Record</a>";
+    //TODO add message for new or update
 }
 
 $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or die (mysqli_error($dbconnect));
@@ -46,13 +57,13 @@ $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or 
 
 <div id="box">
     <div id="form">
-        <form action="games.php" method="post">
+        <form action="games.php" method="post" id="inputForm">
             <input type="hidden" name="new" value=" <?php echo $isNew?>" />
             <input type="hidden" name="update" value=" <?php echo $isUpdate?>" />
-            <div class="input"> ID: <input type="number" name="id" /> </div>
-            <div class="input"> Spiel: <input type="text" name="game" /> </div>
-            <div class="input"> Punkte: <input type="number" name="points" /> </div>
-            <div class="input"> Gewinner: <select name="winner">
+            <div class="input"><label for="id">ID:</label> <input type="number" name="id" id="id" /> </div>
+            <div class="input"> <label for="game">Spiel:</label> <input type="text" name="game" id="game" /> </div>
+            <div class="input"> <label for="points">Punkte:</label> <input type="number" name="points" id="points" /> </div>
+            <div class="input"> <label for="winner">Gewinner:</label> <select name="winner" id="winner">
                     <?php
                         while ($row = mysqli_fetch_array($participants_query)) {
                             echo "<option value=\"".$row['participant_id']."\">".$row['name']."</option>";
@@ -60,7 +71,7 @@ $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or 
 
                     ?>
                 </select> </div>
-            <div class="input"> Zeit: <input type="datetime-local" name="time" /> </div>
+            <div class="input"> <label for="time">Zeit:</label> <input type="datetime-local" name="time" id="time" /> </div>
             <div> <input type="submit"></div>
         </form>
     </div>
@@ -74,7 +85,7 @@ $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or 
             <div class="tableRowTime">Zeit</div>
         </div>
         <?php
-        $games_query = mysqli_query($dbconnect, "SELECT g.id as gid, g.name as gname,g.points as gpoints, p.name as pname, g.time as gtime FROM games g JOIN participants p ON g.winner_id = p.participant_id ") or die (mysqli_error($dbconnect));
+        $games_query = mysqli_query($dbconnect, "SELECT g.id as gid, g.name as gname,g.points as gpoints, p.name as pname, g.winner_id as gwinner, g.time as gtime FROM games g JOIN participants p ON g.winner_id = p.participant_id ") or die (mysqli_error($dbconnect));
 
 
         echo "<div class=\"tableRow\">";
@@ -84,6 +95,7 @@ $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or 
                     echo "<div class=\"tableRowPoints\">".$row['gpoints']."</div>";
                     echo "<div class=\"tableRowWinner\">".$row['pname']."</div>";
                     echo "<div class=\"tableRowTime\">".$row['gtime']."</div>";
+                    echo "<button onclick=\"updateGame(".$row['gid'].",'".$row['gname']."',".$row['gpoints'].",'".$row['gwinner']."','".$row['gtime']."')\">Ändern</button>";
 
                 }
             echo "</div>";
