@@ -12,6 +12,8 @@
     }
 </script>
 
+
+
 <?php
 $ini_array = parse_ini_file("../config.ini");
 $dbhost = $ini_array['dbhost'];
@@ -23,6 +25,20 @@ $isNew = 1;
 $isUpdate = 0;
 
 $dbconnect=mysqli_connect($dbhost,$dbuser,$dbpass,$db);
+$eventname = $ini_array['eventname'];
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="adminstyle.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title><?php echo $eventname?> Admin</title>
+</head>
+<body>
+
+<?php
 
 if ($dbconnect->connect_error) {
     die("Database connection failed: " . $dbconnect->connect_error);
@@ -77,8 +93,9 @@ $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or 
         </form>
     </div>
 
-    <div id="table">
+    <div id="table" class="table">
         <div class="tableRow">
+            <div>&nbsp;</div>
             <div class="tableRowID">ID</div>
             <div class="tableRowGame">Spiel</div>
             <div class="tableRowPoints">Punkte</div>
@@ -89,17 +106,17 @@ $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or 
         $games_query = mysqli_query($dbconnect, "SELECT g.id as gid, g.name as gname,g.points as gpoints, p.name as pname, g.winner_id as gwinner, g.time as gtime FROM games g JOIN participants p ON g.winner_id = p.participant_id ") or die (mysqli_error($dbconnect));
 
 
-        echo "<div class=\"tableRow\">";
-                while ($row = mysqli_fetch_array($games_query)) {
-                    echo "<div class=\"tableRowID\">".$row['gid']."</div>";
-                    echo "<div class=\"tableRowGame\">".$row['gname']."</div>";
-                    echo "<div class=\"tableRowPoints\">".$row['gpoints']."</div>";
-                    echo "<div class=\"tableRowWinner\">".$row['pname']."</div>";
-                    echo "<div class=\"tableRowTime\">".$row['gtime']."</div>";
-                    echo "<button onclick=\"updateGame(".$row['gid'].",'".$row['gname']."',".$row['gpoints'].",'".$row['gwinner']."','".$row['gtime']."')\">Ändern</button>";
-
-                }
+        while ($row = mysqli_fetch_array($games_query)) {
+            echo "<div class=\"tableRow\">";
+                echo "<div>&nbsp;</div>";
+                echo "<div class=\"tableRowID\">".$row['gid']."</div>";
+                echo "<div class=\"tableRowGame\">".$row['gname']."</div>";
+                echo "<div class=\"tableRowPoints\">".$row['gpoints']."</div>";
+                echo "<div class=\"tableRowWinner\">".$row['pname']."</div>";
+                echo "<div class=\"tableRowTime\">".$row['gtime']."</div>";
+                echo "<button class=\"tableRowButton\" onclick=\"updateGame(".$row['gid'].",'".$row['gname']."',".$row['gpoints'].",'".$row['gwinner']."','".$row['gtime']."')\">Ändern</button>";
             echo "</div>";
+        }
 
         ?>
     </div>
@@ -112,3 +129,6 @@ $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or 
 mysqli_close($dbconnect);
 
 ?>
+
+</body>
+</html>
