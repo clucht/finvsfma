@@ -95,7 +95,7 @@ $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or 
 
     <div id="table" class="table">
         <div class="tableRow">
-            <div>&nbsp;</div>
+            <div class="tableRowEmpty">&nbsp;</div>
             <div class="tableRowID">ID</div>
             <div class="tableRowGame">Spiel</div>
             <div class="tableRowPoints">Punkte</div>
@@ -108,7 +108,7 @@ $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or 
 
         while ($row = mysqli_fetch_array($games_query)) {
             echo "<div class=\"tableRow\">";
-                echo "<div>&nbsp;</div>";
+                echo "<div class=\"tableRowEmpty\">&nbsp;</div>";
                 echo "<div class=\"tableRowID\">".$row['gid']."</div>";
                 echo "<div class=\"tableRowGame\">".$row['gname']."</div>";
                 echo "<div class=\"tableRowPoints\">".$row['gpoints']."</div>";

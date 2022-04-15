@@ -16,7 +16,13 @@ body {
 
 .tableRow{
     min-width: 100%;
+    height: 1.5em;
     text-align: center;
+}
+
+.tableRowEmpty{
+    width: 1px;
+    float: left;
 }
 
 .tableRowID{
@@ -47,5 +53,5 @@ body {
 
 .tableRowButton{
     width: 25%;
-    float: right;
+    float: left;
 }
