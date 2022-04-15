@@ -9,9 +9,30 @@ body {
     padding: 0;
 }
 
+#editInput{
+    margin: auto;
+    text-align: center;
+    width: fit-content;
+}
+#editType{
+    font-size: larger;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+}
+.inputLabel{
+    display: inline-block;
+    min-width: 10ch;
+}
+.input{
+    width: fit-content;
+    text-align: left;
+}
+
+
 .table{
     width: 80%;
     margin: auto;
+    margin-top: 2em;
 }
 
 .tableRow{

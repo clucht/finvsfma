@@ -85,25 +85,27 @@ $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or 
 ?>
 
 <div id="box">
+    <div id="editInput">
     <div id="editType">Neuen Eintrag anlegen</div>
-    <div id="form">
-        <form action="games.php" method="post" id="inputForm">
-            <input type="hidden" name="new" value=" <?php echo $isNew?>" />
-            <input type="hidden" name="update" value=" <?php echo $isUpdate?>" />
-            <div class="input"><label for="id">ID:</label> <input type="number" name="id" id="id" /> </div>
-            <div class="input"> <label for="game">Spiel:</label> <input type="text" name="game" id="game" /> </div>
-            <div class="input"> <label for="points">Punkte:</label> <input type="number" name="points" id="points" /> </div>
-            <div class="input"> <label for="winner">Gewinner:</label> <select name="winner" id="winner">
+        <div id="form">
+            <form action="games.php" method="post" id="inputForm">
+                <input type="hidden" name="new" value=" <?php echo $isNew?>" />
+                <input type="hidden" name="update" value=" <?php echo $isUpdate?>" />
+                <div class="input"><label class="inputLabel" for="id">ID:</label> <input type="number" name="id" id="id" /> </div>
+                <div class="input"> <label class="inputLabel" for="game">Spiel:</label> <input type="text" name="game" id="game" /> </div>
+                <div class="input"> <label class="inputLabel" for="points">Punkte:</label> <input type="number" name="points" id="points" /> </div>
+                <div class="input"> <label class="inputLabel" for="winner">Gewinner:</label> <select name="winner" id="winner">
                     <?php
                         while ($row = mysqli_fetch_array($participants_query)) {
                             echo "<option value=\"".$row['participant_id']."\">".$row['name']."</option>";
                         }
 
                     ?>
-                </select> </div>
-            <div class="input"> <label for="time">Zeit:</label> <input type="datetime-local" name="time" id="time" /> </div>
-            <div> <input type="submit"></div>
-        </form>
+                    </select> </div>
+                <div class="input"> <label class="inputLabel" for="time">Zeit:</label> <input type="datetime-local" name="time" id="time" /> </div>
+                <div> <input type="submit"></div>
+            </form>
+        </div>
     </div>
 
     <div id="table" class="table">
