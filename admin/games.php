@@ -9,6 +9,18 @@
         document.getElementById('inputForm').elements["time"].value = time;
         document.getElementById('inputForm').elements["new"].value = 0;
         document.getElementById('inputForm').elements["update"].value = 1;
+        document.getElementById('editType').innerText = "Eintrag ändern";
+    }
+
+    function emptyFields(){
+        document.getElementById('inputForm').elements["id"].value = "";
+        document.getElementById('inputForm').elements["game"].value = "";
+        document.getElementById('inputForm').elements["points"].value = "";
+        document.getElementById('inputForm').elements["winner"].value = "";
+        document.getElementById('inputForm').elements["time"].value = "";
+        document.getElementById('inputForm').elements["new"].value = 1;
+        document.getElementById('inputForm').elements["update"].value = 0;
+        document.getElementById('editType').innerText = "Neuen Eintrag anlegen";
     }
 </script>
 
@@ -73,6 +85,7 @@ $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or 
 ?>
 
 <div id="box">
+    <div id="editType">Neuen Eintrag anlegen</div>
     <div id="form">
         <form action="games.php" method="post" id="inputForm">
             <input type="hidden" name="new" value=" <?php echo $isNew?>" />
@@ -101,6 +114,7 @@ $participants_query = mysqli_query($dbconnect, "SELECT * FROM participants") or 
             <div class="tableRowPoints">Punkte</div>
             <div class="tableRowWinner">Gewinner</div>
             <div class="tableRowTime">Zeit</div>
+            <button class="tableRowButton" onclick="emptyFields()">Neu</button>
         </div>
         <?php
         $games_query = mysqli_query($dbconnect, "SELECT g.id as gid, g.name as gname,g.points as gpoints, p.name as pname, g.winner_id as gwinner, g.time as gtime FROM games g JOIN participants p ON g.winner_id = p.participant_id ") or die (mysqli_error($dbconnect));
